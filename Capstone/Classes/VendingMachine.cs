@@ -8,8 +8,12 @@ namespace Capstone.Classes
     {
         public Accountant accountant = new Accountant();
 
-        public Inventory inventory = new Inventory();
+        public Inventory inventory;
 
+        public VendingMachine(Dictionary<string, List<Item>> initialInventory)
+        {
+            inventory = new Inventory(initialInventory);
+        }
 
         //-->We must check if item code is in stock. If so then run the DecrementItem function (return the item and delete it from list) & run the DispenseItem function
         public bool SelectItemByCode(string id)
@@ -28,9 +32,30 @@ namespace Capstone.Classes
 
             return success;
         }
+        
+        //We'll call our Accountant here as well to adjust the balance after item is selected and decremented
         public void DispenseItem(Item item)
         {
-            
+            Console.WriteLine($"{item.Name}, {item.Price}, {accountant.Balance}");
+            accountant.DecrementBalance(item.Price);
+
+            if (item.Type == "chip")
+            {
+                Console.WriteLine("Crunch Crunch, Yum!");
+            }
+            if (item.Type == "candy")
+            {
+                Console.WriteLine("Munch Munch, Yum!");
+            }
+            if (item.Type == "drink")
+            {
+                Console.WriteLine("Glug Glug, Yum!");
+            }
+            if (item.Type == "gum")
+            {
+                Console.WriteLine("Chew Chew, Yum!");
+            }
+
         }
     }
 }

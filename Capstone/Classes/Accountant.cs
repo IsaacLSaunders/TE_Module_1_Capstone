@@ -9,12 +9,12 @@ namespace Capstone.Classes
     {
         public decimal Balance { get; private set; } = 0.00M;
 
-        private decimal IncrementBalance(decimal moneyIn)
+        public decimal IncrementBalance(decimal moneyIn)
         {
             Balance += moneyIn;
             return Balance;
         }
-        private decimal DecrementBalance(decimal itemPrice)
+        public decimal DecrementBalance(decimal itemPrice)
         {
             Balance -= itemPrice;
             return Balance;

@@ -6,15 +6,15 @@ namespace Capstone.Classes
 {
     public class Item
     {
-        public string Type { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public string Type { get; set; }
 
-        public Item(string type, string name, decimal price)
+        public Item(string name, decimal price, string type)
         {
-            Type = type;
             Name = name;
             Price = price;
+            Type = type;
         }
     }
 }
