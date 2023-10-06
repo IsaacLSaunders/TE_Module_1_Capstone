@@ -23,7 +23,7 @@ namespace Capstone.Classes
             return Balance;
         }
 
-        private bool DispenseChange()
+        public bool DispenseChange()
         {
             bool success = false;
 

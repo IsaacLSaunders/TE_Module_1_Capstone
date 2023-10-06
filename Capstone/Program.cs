@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Classes;
+using System;
 
 namespace Capstone
 {
@@ -6,7 +7,9 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            UI ui = new UI();
+
+            ui.Run();
         }
     }
 }
