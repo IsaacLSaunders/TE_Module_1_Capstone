@@ -18,33 +18,37 @@ namespace Capstone.Classes
             {
                 using (StreamReader sr = new StreamReader(Path.Combine(directory, inputFile)))
                 {
-                    string id = "";
-                    List<Item> listOfItems = new List<Item>();
-
-                    string name = "";
-                    decimal price = 0.00M;
-                    string type = "";
-
-                    string line = sr.ReadLine();
-                    string[] splitLine = line.Split("|");
-
-                    id = splitLine[0];
-                    name = splitLine[1];
-                    try
+                    while (!sr.EndOfStream)
                     {
-                        price = decimal.Parse(splitLine[2]);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                    type = splitLine[3];
 
-                    for (int i=0; i<5; i++)
-                    {
-                        Item newItem = new Item(name, price, type);
-                        listOfItems.Add(newItem);
+                        string id = "";
+                        List<Item> listOfItems = new List<Item>();
+
+                        string name = "";
+                        decimal price = 0.00M;
+                        string type = "";
+
+                        string line = sr.ReadLine();
+                        string[] splitLine = line.Split("|");
+
+                        id = splitLine[0];
+                        name = splitLine[1];
+                        try
+                        {
+                            price = decimal.Parse(splitLine[2]);
+                        }
+                        catch (Exception)
+                        {
+                        }
+                        type = splitLine[3];
+
+                        for (int i=0; i<5; i++)
+                        {
+                            Item newItem = new Item(name, price, type);
+                            listOfItems.Add(newItem);
+                        }
+                        returnDict.Add(id,listOfItems);
                     }
-                    returnDict.Add(id,listOfItems);
 
                 }
             }
