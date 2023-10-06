@@ -19,17 +19,22 @@ namespace Capstone.Classes
         public void DisplayInventory()
         {
             Console.WriteLine();
-            foreach(KeyValuePair<string,List<Item>> keyValuePair in ItemLocations)
+            foreach (KeyValuePair<string, List<Item>> keyValuePair in ItemLocations)
             {
-
-                Console.WriteLine($"{keyValuePair.Key}|{keyValuePair.Value[0].Name}|{keyValuePair.Value[0].Price}|{keyValuePair.Value[0].Type}|{keyValuePair.Value.Count}");
-
+                try
+                {
+                    Console.WriteLine($"{keyValuePair.Key}|{keyValuePair.Value[0].Name}|{keyValuePair.Value[0].Price}|{keyValuePair.Value[0].Type}|{keyValuePair.Value.Count}");
+                }
+                catch
+                {
+                    Console.WriteLine("This item is out of stock.");
+                }
             }
         }
 
         public Item ItemDecrementInventory(string id)
         {
-            Item removedItem = ItemLocations[id][ItemLocations[id].Count-1];
+            Item removedItem = ItemLocations[id][ItemLocations[id].Count - 1];
             ItemLocations[id].RemoveAt(ItemLocations[id].Count - 1);
 
             return removedItem;

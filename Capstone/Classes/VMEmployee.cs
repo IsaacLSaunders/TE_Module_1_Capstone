@@ -1,61 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Capstone.Classes
 {     //StockVM() will return Dictionary<string, List(Items)>
     public class VMEmployee
     {
+
+
+        private const int NumberOfItemsInRow = 5;
+
         public Dictionary<string, List<Item>> StockVM()
         {
-            Dictionary<string, List<Item>> returnDict = new Dictionary<string, List<Item>>();
-
             string directory = Environment.CurrentDirectory;
-            string inputFile = "vendingmachine.csv";
-
+            string fileName = "vendingmachine.csv";
+            string fullPath = Path.Combine(directory, fileName);
+            Dictionary<string, List<Item>> returnDictionary = new Dictionary<string, List<Item>>();
+            
             try
             {
-                using (StreamReader sr = new StreamReader(Path.Combine(directory, inputFile)))
+                using (StreamReader sr = new StreamReader(fullPath))
                 {
-                    string id = "";
-                    List<Item> listOfItems = new List<Item>();
-
-                    string name = "";
-                    decimal price = 0.00M;
-                    string type = "";
-
-                    string line = sr.ReadLine();
-                    string[] splitLine = line.Split("|");
-
-                    id = splitLine[0];
-                    name = splitLine[1];
-                    try
+                    while (!sr.EndOfStream)
                     {
-                        price = decimal.Parse(splitLine[2]);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                    type = splitLine[3];
+                        string id = "";
+                        List<Item> returnList = new List<Item>();
 
-                    for (int i=0; i<5; i++)
-                    {
-                        Item newItem = new Item(name, price, type);
-                        listOfItems.Add(newItem);
+                        //read a line from the file
+                        string line = sr.ReadLine();
+                        //split line on pipes into a string called itemString(id,name,type,price)
+                        string[] itemString = line.Split("|");
+
+                        //go through my array of itemStrings and pull string before the first |
+
+                        //set this aside as my itemID
+                        id = itemString[0];
+
+                        decimal parsedVariable = 0.00M;
+                        try
+                        {
+                            parsedVariable = decimal.Parse(itemString[2]);
+                        }
+                        catch (Exception)
+                        {
+                        }
+
+                        for(int i = 0; i < NumberOfItemsInRow; i++)
+                        {      //itemString[0] = item ID, itemString[1] = item Name, itemString[2] = item Price, itemString[3] = item Type!
+                            Item newItem = new Item(itemString[1], parsedVariable, itemString[3]);
+
+                            returnList.Add(newItem);
+                        }
+                        returnDictionary.Add(id, returnList);
                     }
-                    returnDict.Add(id,listOfItems);
 
                 }
             }
-            catch (Exception)
+            catch
             {
 
-                throw;
             }
-
-            return returnDict;
-
+            return returnDictionary;
         }
+
     }
 }

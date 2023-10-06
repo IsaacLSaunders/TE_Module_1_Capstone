@@ -22,7 +22,7 @@ namespace Capstone.Classes
             {
                 using (StreamWriter sw = new StreamWriter(Path.Combine(directory, "log.txt"), true))
                 {
-                    sw.WriteLine($"{DateTime.Now} {logType}: {amount} {balance}");
+                    sw.WriteLine($"{DateTime.Now} {logType}: {amount:C2} {balance:C2}");
                 }
             }
             catch (Exception)
@@ -48,13 +48,23 @@ namespace Capstone.Classes
             {
                 using (StreamWriter sw = new StreamWriter(Path.Combine(directory, "log.txt"), true))
                 {
-                    sw.WriteLine($"{DateTime.Now} {item} {location} {amount} {balance}");
+                    sw.WriteLine($"{DateTime.Now} {item} {location} {amount:C2} {balance:C2}");
                 }
             }
             catch (Exception)
             {
             }
 
+
+        }
+
+        public static void DeleteLog()
+        {
+            string directory = Environment.CurrentDirectory;
+            string logFileExt = "log.txt";
+            string fullPath = Path.Combine(directory, logFileExt);
+
+            File.Delete(fullPath);
 
         }
     }
