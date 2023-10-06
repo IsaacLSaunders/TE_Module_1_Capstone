@@ -24,7 +24,7 @@ namespace Capstone.Classes
             {
                 Item selectedItem = inventory.ItemDecrementInventory(id);
 
-                DispenseItem(selectedItem);
+                DispenseItem(selectedItem, id);
 
                 success = true;
             }
@@ -34,10 +34,13 @@ namespace Capstone.Classes
         }
         
         //We'll call our Accountant here as well to adjust the balance after item is selected and decremented
-        public void DispenseItem(Item item)
+        public void DispenseItem(Item item, string id)
         {
             Console.WriteLine($"{item.Name}, {item.Price}, {accountant.Balance}");
             accountant.DecrementBalance(item.Price);
+
+            //log the transaction to the log file in /bin via the static method Log on the Logger class
+            Logger.Log(item.Name, id, item.Price, accountant.Balance);
 
             if (item.Type == "chip")
             {

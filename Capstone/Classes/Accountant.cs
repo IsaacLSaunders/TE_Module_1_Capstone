@@ -12,6 +12,9 @@ namespace Capstone.Classes
         public decimal IncrementBalance(decimal moneyIn)
         {
             Balance += moneyIn;
+
+            //log the action of adding additional funds to the balance to the log file in bin via the static method Log on the Logger class
+            Logger.Log("FEED MONEY", moneyIn, Balance);
             return Balance;
         }
         public decimal DecrementBalance(decimal itemPrice)
@@ -24,6 +27,7 @@ namespace Capstone.Classes
         {
             bool success = false;
 
+            decimal previousBalance = Balance;
             int balanceAsPennies = (int)(Balance * 100);
             int numberOfQuarters = 0;
             int numberOfDimes = 0;
@@ -39,11 +43,12 @@ namespace Capstone.Classes
             numberOfNickles = (remainderFromDimes - remainderFromNickles) / 5;
 
             Console.WriteLine($"Your balance was {Balance}. Your change is {numberOfQuarters} quarters, {numberOfDimes} dimes, and {numberOfNickles} nickles.");
-
             Balance = 0.00M;
-
             Console.WriteLine($"Your balance is now {Balance}.");
 
+            //log the action of dispensing change to the log file in bin via the static method Log on the Logger class
+            Logger.Log("GIVE CHANGE", previousBalance, Balance);
+            
             success = true;
 
             return success;
