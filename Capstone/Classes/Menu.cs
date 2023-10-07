@@ -4,7 +4,7 @@ using System.Dynamic;
 using System.Net.WebSockets;
 using System.Text;
 
-namespace Capstone.Classes.Menus
+namespace Capstone.Classes
 {   //At vendimg machine start of run,, Run() with welcome message then displays Main menu
     //Needs access to VendingMachine to run its methods. Vending Mahcine has accountant and inventory access
     //DO WHILE--> while userSellection != 3 (exit selections in both menus)
