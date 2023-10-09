@@ -70,7 +70,6 @@ namespace CapstoneTests
         }
         
         [TestMethod]
-
         [DataRow(int.MinValue, 0)]
         [DataRow(-3, 0)]
         [DataRow(-6, 0)]
@@ -89,5 +88,40 @@ namespace CapstoneTests
             Assert.AreEqual(sut.Balance, expectedAsDecimal);
         }
 
+        [TestMethod]
+        [DataRow(4, true)]
+        [DataRow(5, true)]
+        [DataRow(5000, true)]
+        [DataRow(500000, true)]
+        [DataRow(1 / 2, true)]
+        public void AccountantGiveChange_HappyPath(int price, bool expected)
+        {
+            //arrange 
+            Accountant sut = new Accountant();
+            sut.IncrementBalance(Convert.ToDecimal(price));
+
+            //act
+            bool actual = sut.DispenseChange();
+
+            //assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [DataRow(500000, true)]
+        [DataRow(500000000, true)]
+        [DataRow(int.MaxValue, true)]
+        public void AccountantGiveChange_OversizedBalanceConvertToPennies(int price, bool expected)
+        {
+            //arrange 
+            Accountant sut = new Accountant();
+            sut.IncrementBalance(Convert.ToDecimal(price));
+
+            //act
+            bool actual = sut.DispenseChange();
+
+            //assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
