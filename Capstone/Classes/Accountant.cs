@@ -11,6 +11,11 @@ namespace Capstone.Classes
 
         public decimal IncrementBalance(decimal moneyIn)
         {
+            if (moneyIn < 0)
+            {
+                return Balance;
+            }
+
             Balance += moneyIn;
 
             //log the action of adding additional funds to the balance to the log file in bin via the static method Log on the Logger class
@@ -19,6 +24,11 @@ namespace Capstone.Classes
         }
         public decimal DecrementBalance(decimal itemPrice)
         {
+            if (itemPrice < 0)
+            {
+                return Balance;
+            }
+            
             Balance -= itemPrice;
             return Balance;
         }

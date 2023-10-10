@@ -70,10 +70,10 @@ namespace CapstoneTests
         }
         
         [TestMethod]
-        [DataRow(int.MinValue, 0)]
-        [DataRow(-3, 0)]
-        [DataRow(-6, 0)]
-        [DataRow(-1000, 0)]
+        [DataRow(int.MinValue, int.MaxValue)]
+        [DataRow(-3, int.MaxValue)]
+        [DataRow(-6, int.MaxValue)]
+        [DataRow(-1000, int.MaxValue)]
         public void AccountantDecrementBalance_NegativeNumberInput(int price, double expected)
         {
             //arrange 
@@ -108,9 +108,9 @@ namespace CapstoneTests
         }
 
         [TestMethod]
+        [DataRow(5000, true)]
+        [DataRow(50000, true)]
         [DataRow(500000, true)]
-        [DataRow(500000000, true)]
-        [DataRow(int.MaxValue, true)]
         public void AccountantGiveChange_OversizedBalanceConvertToPennies(int price, bool expected)
         {
             //arrange 

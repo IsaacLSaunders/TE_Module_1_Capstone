@@ -34,8 +34,10 @@ namespace Capstone.Classes
 
         public Item ItemDecrementInventory(string id)
         {
-            Item removedItem = ItemLocations[id][ItemLocations[id].Count - 1];
-            ItemLocations[id].RemoveAt(ItemLocations[id].Count - 1);
+            string itemIdUpper = id.ToUpper();
+
+            Item removedItem = ItemLocations[itemIdUpper][ItemLocations[itemIdUpper].Count - 1];
+            ItemLocations[itemIdUpper].RemoveAt(ItemLocations[itemIdUpper].Count - 1);
 
             return removedItem;
         }

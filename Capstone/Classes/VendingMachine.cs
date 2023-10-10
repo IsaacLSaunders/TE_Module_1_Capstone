@@ -19,12 +19,16 @@ namespace Capstone.Classes
         public bool SelectItemByCode(string id)
         {
             bool success = false;
-            //check each item in dicitonary
-            if (inventory.ItemLocations.ContainsKey(id))
-            {
-                Item selectedItem = inventory.ItemDecrementInventory(id);
+            if (string.IsNullOrEmpty(id)) return success;
 
-                DispenseItem(selectedItem, id);
+            string itemIdUpper = id.ToUpper();
+            //check each item in dicitonary
+
+            if (inventory.ItemLocations.ContainsKey(itemIdUpper))
+            {
+                Item selectedItem = inventory.ItemDecrementInventory(itemIdUpper);
+
+                DispenseItem(selectedItem, itemIdUpper);
 
                 success = true;
             }
@@ -36,11 +40,13 @@ namespace Capstone.Classes
         //We'll call our Accountant here as well to adjust the balance after item is selected and decremented
         public void DispenseItem(Item item, string id)
         {
+            string itemIdUpper = id.ToUpper();
+
             accountant.DecrementBalance(item.Price);
             Console.WriteLine($"{item.Name}, {item.Price:C2}, {accountant.Balance:C2}");
 
             //log the transaction to the log file in /bin via the static method Log on the Logger class
-            Logger.Log(item.Name, id, item.Price, accountant.Balance);
+            Logger.Log(item.Name, itemIdUpper, item.Price, accountant.Balance);
 
             if (item.Type == "Chip")
             {
