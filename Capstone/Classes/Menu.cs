@@ -90,9 +90,7 @@ namespace Capstone.Classes
 
                 try
                 {
-                    Console.WriteLine();
-                    Console.WriteLine($"Your current balance is {VM.accountant.Balance:C2}");
-                    Console.WriteLine();
+                    DisplayBalance();
                     Console.WriteLine("Please make a numerical selection, 1-3.");
                     Console.WriteLine("1) Feed Money");
                     Console.WriteLine("2) Select Product");
@@ -178,7 +176,8 @@ namespace Capstone.Classes
 
             while (!validUserInput)
             {
-                Console.WriteLine();
+                VM.inventory.DisplayInventory();
+                DisplayBalance();
                 Console.WriteLine("Which product would you like to enjoy today? Please select a product ID.");
                 Console.WriteLine("Write EXIT, to return to the previous menu.");
                 string productId = Console.ReadLine().ToUpper();
@@ -217,14 +216,13 @@ namespace Capstone.Classes
 
             }
             return;
-            //run incrementbalance with userinput
-            //prompt user "which product would you like. select the id"
+        }
 
-            //read the line -->try catch<-- IS it a valid input & does it exist in inventory
-
-            //if does exist, run SelectItemByCode()
-
-            //else prompt user again
+        public void DisplayBalance()
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Your current Balance is {VM.accountant.Balance}");
+            Console.WriteLine();
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Capstone.Classes
         public void DisplayInventory()
         {
             Console.WriteLine();
+
             foreach (KeyValuePair<string, List<Item>> keyValuePair in ItemLocations)
             {
                 try
@@ -34,7 +35,26 @@ namespace Capstone.Classes
 
         public Item ItemDecrementInventory(string id)
         {
-            string itemIdUpper = id.ToUpper();
+
+            //THIS IS CONFUSING, is there a better way...? Who knows... maybe Mr. Anderson
+
+            string itemIdUpper = null;
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                itemIdUpper = id.ToUpper();
+
+                if (!ItemLocations.ContainsKey(itemIdUpper))
+                {
+                    return null;
+                }
+            }
+            else if (string.IsNullOrEmpty(id))
+            {
+                return null;
+            }
+
+            itemIdUpper = id.ToUpper();
 
             Item removedItem = ItemLocations[itemIdUpper][ItemLocations[itemIdUpper].Count - 1];
             ItemLocations[itemIdUpper].RemoveAt(ItemLocations[itemIdUpper].Count - 1);
