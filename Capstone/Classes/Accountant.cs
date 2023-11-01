@@ -52,6 +52,7 @@ namespace Capstone.Classes
             int remainderFromNickles = remainderFromDimes % 5;
             numberOfNickles = (remainderFromDimes - remainderFromNickles) / 5;
 
+            //THESE CW'S CAN BE RETURNED AS A STRING AND CAN BE WRITTEN IN THE MENU CLASS
             Console.WriteLine($"Your balance was {Balance}. Your change is {numberOfQuarters} quarters, {numberOfDimes} dimes, and {numberOfNickles} nickles.");
             Balance = 0.00M;
             Console.WriteLine($"Your balance is now {Balance}.");

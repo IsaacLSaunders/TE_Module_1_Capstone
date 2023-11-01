@@ -4,8 +4,12 @@ using System.Text;
 
 namespace Capstone.Classes
 {
+    //THIS IS MAYBE AN ABSTRACT CLASS
+    //WE CAN ADD THE SOUND THAT IT MAKES HERE
+    //OVERRIDE THE TOSTRING METHOD TO PRINT THE MESSAGE BY TYPE
     public class Item
     {
+        //ADD A MESSAGE PROPERTY
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Type { get; set; }

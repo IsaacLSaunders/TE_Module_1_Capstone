@@ -18,7 +18,7 @@ namespace Capstone.Classes
             string fileName = "vendingmachine.csv";
             string fullPath = Path.Combine(directory, fileName);
             Dictionary<string, List<Item>> returnDictionary = new Dictionary<string, List<Item>>();
-            
+
             try
             {
                 using (StreamReader sr = new StreamReader(fullPath))
@@ -31,29 +31,29 @@ namespace Capstone.Classes
                         //read a line from the file
                         string line = sr.ReadLine();
                         //split line on pipes into a string called itemString(id,name,type,price)
-                        string[] itemString = line.Split("|");
-
-                        //go through my array of itemStrings and pull string before the first |
-
-                        //set this aside as my itemID
-                        id = itemString[0];
-
                         decimal parsedVariable = 0.00M;
                         try
                         {
+                            string[] itemString = line.Split("|");
+
+                            //go through my array of itemStrings and pull string before the first |
+
+                            //set this aside as my itemID
+                            id = itemString[0];
+
                             parsedVariable = decimal.Parse(itemString[2]);
+
+                            for (int i = 0; i < NumberOfItemsInRow; i++)
+                            {      //itemString[0] = item ID, itemString[1] = item Name, itemString[2] = item Price, itemString[3] = item Type!
+                                Item newItem = new Item(itemString[1], parsedVariable, itemString[3]);
+
+                                returnList.Add(newItem);
+                            }
+                            returnDictionary.Add(id, returnList);
                         }
                         catch (Exception)
                         {
                         }
-
-                        for(int i = 0; i < NumberOfItemsInRow; i++)
-                        {      //itemString[0] = item ID, itemString[1] = item Name, itemString[2] = item Price, itemString[3] = item Type!
-                            Item newItem = new Item(itemString[1], parsedVariable, itemString[3]);
-
-                            returnList.Add(newItem);
-                        }
-                        returnDictionary.Add(id, returnList);
                     }
 
                 }

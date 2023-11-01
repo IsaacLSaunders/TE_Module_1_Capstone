@@ -8,7 +8,7 @@ namespace Capstone.Classes
     {
         public Accountant accountant = new Accountant();
 
-        public Inventory inventory= null;
+        public Inventory inventory = null;
 
         public VendingMachine(Dictionary<string, List<Item>> initialInventory)
         {
@@ -26,6 +26,7 @@ namespace Capstone.Classes
 
             if (inventory.ItemLocations.ContainsKey(itemIdUpper))
             {
+                //RETURN THIS ITEM BACK TO THE MENU CLASS AND DO THE CW's BASED ON ITEM TYPE
                 Item selectedItem = inventory.ItemDecrementInventory(itemIdUpper);
 
                 DispenseItem(selectedItem, itemIdUpper);
@@ -48,6 +49,8 @@ namespace Capstone.Classes
             //log the transaction to the log file in /bin via the static method Log on the Logger class
             Logger.Log(item.Name, itemIdUpper, item.Price, accountant.Balance);
 
+            //THINK OF MOVING THE CW's HERE TO THE MENU CLASS
+                //ACCESS THIS INFO BY RETURNING OUR ITEM BACK TO SELECTITEMBYCODE
             if (item.Type == "Chip")
             {
                 Console.WriteLine("Crunch Crunch, Yum!");
